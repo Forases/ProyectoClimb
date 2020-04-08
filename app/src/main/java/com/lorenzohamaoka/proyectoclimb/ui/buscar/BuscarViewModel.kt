@@ -1,10 +1,10 @@
-package com.lorenzohamaoka.proyectoclimb.ui.dashboard
+package com.lorenzohamaoka.proyectoclimb.ui.buscar
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class DashboardViewModel : ViewModel() {
+class BuscarViewModel : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
         value = "This is dashboard Fragment"

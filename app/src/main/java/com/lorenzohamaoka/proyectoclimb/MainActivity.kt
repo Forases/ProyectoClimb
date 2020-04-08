@@ -7,8 +7,13 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import dam.lorenzohamaoka.climbingapp.models.ZonasEscalada
 
 class MainActivity : AppCompatActivity() {
+    companion object {
+        private const val LOCATION_PERMISSION_REQUEST_CODE = 1
+        var zonasArray: MutableList<ZonasEscalada> = arrayListOf()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

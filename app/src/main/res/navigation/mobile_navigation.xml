@@ -7,24 +7,24 @@
 
     <fragment
         android:id="@+id/navigation_filtro"
-        android:name="com.lorenzohamaoka.proyectoclimb.ui.home.HomeFragment"
+        android:name="com.lorenzohamaoka.proyectoclimb.ui.filtro.FiltroFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/navigation_buscar"
-        android:name="com.lorenzohamaoka.proyectoclimb.ui.dashboard.DashboardFragment"
+        android:name="com.lorenzohamaoka.proyectoclimb.ui.buscar.BuscarFragment"
         android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_buscar" />
 
     <fragment
         android:id="@+id/navigation_lista"
-        android:name="com.lorenzohamaoka.proyectoclimb.ui.notifications.NotificationsFragment"
+        android:name="com.lorenzohamaoka.proyectoclimb.ui.lista.ListaFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
     <fragment
         android:id="@+id/navigation_map"
-        android:name="com.lorenzohamaoka.proyectoclimb.ui.MapFragment"
+        android:name="com.lorenzohamaoka.proyectoclimb.ui.map.MapFragment"
         android:label="fragment_map"
         tools:layout="@layout/fragment_map" />
 </navigation>

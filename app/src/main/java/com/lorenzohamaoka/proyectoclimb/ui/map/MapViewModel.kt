@@ -1,4 +1,4 @@
-package com.lorenzohamaoka.proyectoclimb.ui
+package com.lorenzohamaoka.proyectoclimb.ui.map
 
 import androidx.lifecycle.ViewModel
 
