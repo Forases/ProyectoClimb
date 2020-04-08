@@ -7,4 +7,6 @@
     <string name="title_buscar">BUSCAR</string>
     <string name="title_lista">LISTA</string>
     <string name="title_filtro">FILTRO</string>
+    <string name="search_hint">Busca zonas, sectores o vías</string>
+    <string name="app_label">Búsqueda</string>
 </resources>

@@ -20,6 +20,9 @@ class FiltroFragment : Fragment() {
         filtroViewModel =
                 ViewModelProviders.of(this).get(FiltroViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_home, container, false)
+
         return root
     }
+
+
 }
