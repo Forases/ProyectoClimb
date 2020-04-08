@@ -1,0 +1,123 @@
+{
+  "project_info": {
+    "project_number": "866085318297",
+    "firebase_url": "https://proyectofinalandroid-e3f83.firebaseio.com",
+    "project_id": "proyectofinalandroid-e3f83",
+    "storage_bucket": "proyectofinalandroid-e3f83.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:866085318297:android:4d9bcec5eac7b53aa11208",
+        "android_client_info": {
+          "package_name": "com.lorenzohamaoka.proyectoclimb"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "866085318297-7l87iq3enhk1eml8bu8miqtrtp1hh7b0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.lorenzohamaoka.proyectoclimb",
+            "certificate_hash": "a29c6c7ca5f2e0fe664f484661965414851dab0d"
+          }
+        },
+        {
+          "client_id": "866085318297-s247v7rchg3csdodjbaqb885q88df1h1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBBEU5FshoQdPSwfh6SMZWcfR8Ekdpons0"
+        },
+        {
+          "current_key": "AIzaSyDXHdlV0pNkbPBZfdmdWbff3S97p2NRdGI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "866085318297-s247v7rchg3csdodjbaqb885q88df1h1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:866085318297:android:afb1b4fe0b9e69b8a11208",
+        "android_client_info": {
+          "package_name": "dam.lorenzohamaoka.climbingapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "866085318297-s247v7rchg3csdodjbaqb885q88df1h1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBBEU5FshoQdPSwfh6SMZWcfR8Ekdpons0"
+        },
+        {
+          "current_key": "AIzaSyDXHdlV0pNkbPBZfdmdWbff3S97p2NRdGI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "866085318297-s247v7rchg3csdodjbaqb885q88df1h1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:866085318297:android:be01845e31108a7ca11208",
+        "android_client_info": {
+          "package_name": "dam.lorenzohamaoka.proyectofinalandroid"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "866085318297-5vcbjf9bmui2thskmnndike8pjf2k4dh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "dam.lorenzohamaoka.proyectofinalandroid",
+            "certificate_hash": "8c98972b24b3f0b5c33cee4711ef68066374f5f0"
+          }
+        },
+        {
+          "client_id": "866085318297-s247v7rchg3csdodjbaqb885q88df1h1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBBEU5FshoQdPSwfh6SMZWcfR8Ekdpons0"
+        },
+        {
+          "current_key": "AIzaSyDXHdlV0pNkbPBZfdmdWbff3S97p2NRdGI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "866085318297-s247v7rchg3csdodjbaqb885q88df1h1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
