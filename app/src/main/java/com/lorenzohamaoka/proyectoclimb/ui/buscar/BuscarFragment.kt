@@ -22,10 +22,6 @@ class BuscarFragment : Fragment() {
         buscarViewModel =
                 ViewModelProviders.of(this).get(BuscarViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_buscar, container, false)
-        val textView: TextView = root.findViewById(R.id.text_dashboard)
-        buscarViewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = it
-        })
         return root
     }
 }
