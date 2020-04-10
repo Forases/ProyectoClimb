@@ -12,15 +12,11 @@ import com.lorenzohamaoka.proyectoclimb.R
 
 class BuscarFragment : Fragment() {
 
-    private lateinit var buscarViewModel: BuscarViewModel
-
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        buscarViewModel =
-                ViewModelProviders.of(this).get(BuscarViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_buscar, container, false)
         return root
     }

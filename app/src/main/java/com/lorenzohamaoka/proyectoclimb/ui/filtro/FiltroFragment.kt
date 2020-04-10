@@ -10,16 +10,12 @@ import com.lorenzohamaoka.proyectoclimb.R
 
 class FiltroFragment : Fragment() {
 
-    private lateinit var filtroViewModel: FiltroViewModel
-
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        filtroViewModel =
-                ViewModelProviders.of(this).get(FiltroViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_home, container, false)
+        val root = inflater.inflate(R.layout.fragment_filtro, container, false)
 
         return root
     }

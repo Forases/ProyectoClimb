@@ -3,7 +3,6 @@ package com.lorenzohamaoka.proyectoclimb.ui.map
 import android.app.ActionBar
 import android.content.pm.PackageManager
 import android.location.Location
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -25,7 +24,6 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.lorenzohamaoka.proyectoclimb.MainActivity
 
 import com.lorenzohamaoka.proyectoclimb.R
-import com.lorenzohamaoka.proyectoclimb.ui.filtro.FiltroViewModel
 
 class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
     companion object {
@@ -44,17 +42,14 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListe
 
     private val MAP_VIEW_BUNDLE_KEY = "MapViewBundleKey"
 
-    private lateinit var filtroViewModel: FiltroViewModel
-
     val position = LatLng(-33.920455, 18.466941)
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        filtroViewModel =
-            ViewModelProviders.of(this).get(FiltroViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_home, container, false)
+
+        val root = inflater.inflate(R.layout.fragment_map, container, false)
 
         var mapViewBundle: Bundle? = null
         if (savedInstanceState != null) {
