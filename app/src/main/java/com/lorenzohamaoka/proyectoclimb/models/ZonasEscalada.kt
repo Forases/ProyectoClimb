@@ -17,6 +17,7 @@ class ZonasEscalada {
     var tipoRoca: String? = null
     var tipoEscalada: String? = null
     var sectores : MutableList<Sectores>? = null
+    var distancia : Int? = null
 
     constructor(
         referenciaPortada: String?,

@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="60dp"
     android:orientation="vertical">
 
     <TextView
         android:id="@+id/search_nombre_zona"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="18dp"
-        android:layout_marginTop="13dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="11dp"
+        android:layout_marginTop="9dp"
         android:text="Nombre Zona"
         android:textColor="@color/colorPrimary"
         android:textSize="13sp"
@@ -17,11 +19,27 @@
 
     <TextView
         android:id="@+id/search_localidad"
-        android:layout_width="wrap_content"
+        android:layout_width="61dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="18dp"
+        android:layout_below="@+id/search_nombre_zona"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="11dp"
+        android:layout_marginTop="7dp"
+        android:layout_marginEnd="339dp"
         android:text="localidad"
         android:textColor="@android:color/black"
         android:textSize="12sp"
         android:textStyle="bold" />
-</LinearLayout>
+
+    <TextView
+        android:id="@+id/search_distancia"
+        android:layout_width="62dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="10dp"
+        android:layout_toEndOf="@+id/search_nombre_zona"
+        android:text="TextView"
+        android:textSize="12sp" />
+</RelativeLayout>

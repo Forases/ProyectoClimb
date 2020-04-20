@@ -62,6 +62,7 @@ class BuscarFragment : Fragment() {
 
             holder.itemView.search_nombre_zona.text = item.nombreZona
             holder.itemView.search_localidad.text = item.localidad
+            holder.itemView.search_distancia.text = "(" + item.distancia.toString() + " km)"
         }
 
         fun replaceItems(items: MutableList<ZonasEscalada>) {

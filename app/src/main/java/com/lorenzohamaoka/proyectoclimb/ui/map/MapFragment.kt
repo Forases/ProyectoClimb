@@ -19,13 +19,11 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
-import com.google.firebase.firestore.CollectionReference
-import com.google.firebase.firestore.FirebaseFirestore
 import com.lorenzohamaoka.proyectoclimb.LoginActivity
 import com.lorenzohamaoka.proyectoclimb.LoginActivity.Companion.zonasArray
-import com.lorenzohamaoka.proyectoclimb.MainActivity
 
 import com.lorenzohamaoka.proyectoclimb.R
+import com.lorenzohamaoka.proyectoclimb.Utils
 
 class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
     companion object {
@@ -122,6 +120,9 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListe
      * según nuestra ubicación.
      */
     private fun configMap() {
+
+        var currentLatLng: LatLng? = null
+
         if (ActivityCompat.checkSelfPermission(
                 requireActivity(),
                 android.Manifest.permission.ACCESS_FINE_LOCATION
@@ -142,18 +143,21 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListe
             // en algunos casos puede ser null.
             if (location != null) {
                 lastLocation = location
-                val currentLatLng = LatLng(location.latitude,
+                currentLatLng = LatLng(location.latitude,
                     location.longitude)
-                gmap!!.animateCamera(
-                    CameraUpdateFactory.newLatLngZoom(currentLatLng, 10f)
-                )
-            }else{
-                val currentLatLng = LatLng(38.4041828,-0.529396)
                 gmap!!.animateCamera(
                     CameraUpdateFactory.newLatLngZoom(currentLatLng, 9f)
                 )
-
+            }else{
+                currentLatLng = LatLng(37.4041828,-0.529396)
+                gmap!!.animateCamera(
+                    CameraUpdateFactory.newLatLngZoom(currentLatLng, 9f)
+                )
             }
+            for (document in zonasArray) {
+                document.distancia = Utils.distance(document.latitud!!, document.longitud!!, currentLatLng!!.latitude, currentLatLng!!.longitude)
+            }
+
         }
     }
 
@@ -169,7 +173,7 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListe
     }
 
     private fun setMapMarkers(){
-        for (document in LoginActivity.zonasArray) {
+        for (document in zonasArray) {
             Log.d("DOC", "${document.referencia} => ${document.nombreZona}")
             var latLng = LatLng(document.latitud!!, document.longitud!!)
             placeMarkerOnMap(latLng, document.nombreZona!!)
