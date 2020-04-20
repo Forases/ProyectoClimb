@@ -4,50 +4,48 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import android.widget.SearchView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.RecyclerView
 import com.lorenzohamaoka.proyectoclimb.R
 import com.lorenzohamaoka.proyectoclimb.models.Quote
 import kotlinx.android.extensions.LayoutContainer
-import kotlinx.android.synthetic.main.myquote_list.*
-import kotlinx.android.synthetic.main.myquote_list_item.view.*
+import kotlinx.android.synthetic.main.fragment_buscar.*
+import kotlinx.android.synthetic.main.search_item.view.*
+import java.util.*
+import kotlin.collections.ArrayList
 
 class BuscarFragment : Fragment() {
 
-    companion object {
-
-        @JvmStatic
-        fun newInstance() =
-            BuscarFragment().apply {
-                arguments = Bundle().apply {
-                    // putInt(ARG_COLUMN_COUNT, columnCount)
-                }
-            }
-    }
-
     private lateinit var adapter: MyQuoteAdapter
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        arguments?.let {
-            // columnCount = it.getInt(ARG_COLUMN_COUNT)
-        }
-    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.myquote_list, container, false)
+        return inflater.inflate(R.layout.fragment_buscar, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        val items = listOf(
-            Quote("Premature optimization is the root of all evil", null),
-            Quote("Any sufficiently advanced technology is indistinguishable from magic.", "Arthur C. Clarke"),
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+
+                val text = newText
+                /*Call filter Method Created in Custom Adapter
+                    This Method Filter ListView According to Search Keyword
+                 */
+                adapter.filter(text)
+                return false
+            }
+        })
+
+        val items = mutableListOf(
+            Quote("optimization is the root of all evil", null),
+            Quote("Anytechnology is indistinguishable from magic.", "Arthur C. Clarke"),
             Quote("Content 01", "Source"),
             Quote("Content 02", "Source"),
             Quote("Content 03", "Source"),
@@ -55,34 +53,67 @@ class BuscarFragment : Fragment() {
             Quote("Content 05", "Source")
         )
 
-        adapter = MyQuoteAdapter()
+        adapter = MyQuoteAdapter(items)
         adapter.replaceItems(items)
         list.adapter = adapter
     }
 
-    class MyQuoteAdapter : RecyclerView.Adapter<MyQuoteAdapter.ViewHolder>() {
-        private var items = listOf<Quote>()
+    class MyQuoteAdapter (items: MutableList<Quote>) : RecyclerView.Adapter<MyQuoteAdapter.ViewHolder>() {
+        private var quoteItems = items
+        //Store image and arraylist in Temp Array List we Required it later
+        var tempQuoteList = ArrayList(quoteItems)
 
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
             val view = LayoutInflater.from(parent.context)
-                .inflate(R.layout.myquote_list_item, parent, false)
+                .inflate(R.layout.search_item, parent, false)
             return ViewHolder(view)
         }
 
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-            val item = items[position]
+            val item = quoteItems[position]
 
-            holder.itemView.contentTextView.text = item.content
-            holder.itemView.sourceTextView.text = item.source
+            holder.itemView.search_nombre_zona.text = item.content
+            holder.itemView.search_localidad.text = item.source
         }
 
-        fun replaceItems(items: List<Quote>) {
-            this.items = items
+        fun replaceItems(items: MutableList<Quote>) {
+            this.quoteItems = items
             notifyDataSetChanged()
         }
 
-        override fun getItemCount(): Int = items.size
+        //Function to set data according to Search Keyword in ListView
+        fun filter(text: String?) {
+            //Our Search text
+            val text = text!!.toLowerCase(Locale.getDefault())
+
+            quoteItems.clear()
+
+            if (text.length == 0) {
+
+                /*If Search query is Empty than we add all temp data into our main ArrayList
+                We store Value in temp in Starting of Program.
+                */
+                quoteItems.addAll(tempQuoteList)
+            } else {
+
+
+                for (i in 0..tempQuoteList.size - 1) {
+                    /*
+                    If our Search query is not empty thEn we Check Our search keyword in Temp ArrayList.
+                    if our Search Keyword in Temp ArrayList than we add to our Main ArrayList
+                    */
+                    if (tempQuoteList.get(i).content.toLowerCase(Locale.getDefault()).contains(text)) {
+                        quoteItems.add(tempQuoteList.get(i))
+                    }
+
+                }
+            }
+            //This is to notify that data change in Adapter and Reflect the changes.
+            notifyDataSetChanged()
+        }
+
+        override fun getItemCount(): Int = quoteItems.size
 
         inner class ViewHolder(override val containerView: View) :
             RecyclerView.ViewHolder(containerView),

@@ -42,7 +42,6 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListe
 
     private val MAP_VIEW_BUNDLE_KEY = "MapViewBundleKey"
 
-    val position = LatLng(-33.920455, 18.466941)
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
