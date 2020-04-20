@@ -17,6 +17,11 @@ import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : AppCompatActivity() {
 
+    companion object {
+        private const val LOCATION_PERMISSION_REQUEST_CODE = 1
+        var zonasArray: MutableList<ZonasEscalada> = arrayListOf()
+    }
+
     private lateinit var auth: FirebaseAuth
     val TAG = "LoginActivity"
 
@@ -41,7 +46,11 @@ class LoginActivity : AppCompatActivity() {
     }
 
     fun openMainActivity(){
-
+        // Creamos un objeto de tipo Intent
+        val myIntent = Intent(this, MainActivity::class.java)
+        // Lanzamos la activity
+        startActivity(myIntent)
+        finish()
     }
 
     /**
@@ -134,12 +143,7 @@ class LoginActivity : AppCompatActivity() {
                     Log.d(TAG, "signInWithEmail:success")
                     val user = auth.currentUser
                     //updateUI(user)
-
-                    // Creamos un objeto de tipo Intent
-                    val myIntent = Intent(this, MainActivity::class.java)
-                    // Lanzamos la activity
-                    startActivity(myIntent)
-                    finish()
+//                    getZonas()
                 } else {
                     // Login fallido, mostramos un mensaje de error.
                     Log.w(TAG, "signInWithEmail:failure", task.exception)
@@ -152,25 +156,22 @@ class LoginActivity : AppCompatActivity() {
                 }
                 // Fallo en la autenticación.
                 if (!task.isSuccessful) {
+                    getZonas()
                     //status.setText(R.string.auth_failed)
                 }
             }
     }
 
-    private fun getZonas(): MutableList<ZonasEscalada> {
+    private fun getZonas(){
 
         val db: FirebaseFirestore = FirebaseFirestore.getInstance()
         val zonasCollection: CollectionReference = db.collection("zonas")
-
-        // Variables internas de la clase
-        var zonasEscalada: MutableList<ZonasEscalada> = ArrayList()
 
         // Obtener todos los documentos de una colección (sin escucha).
         zonasCollection.get().apply {
             addOnSuccessListener {
                 for (document in it) {
-
-                    zonasEscalada.add(
+                    zonasArray.add(
                         ZonasEscalada(
                             document["referenciaPortada"].toString(),
                             document.id,
@@ -187,7 +188,9 @@ class LoginActivity : AppCompatActivity() {
                         )
                     )
                 }
+                openMainActivity()
             }
+
             addOnFailureListener { exception ->
                 Log.d(
                     "DOC",
@@ -196,7 +199,6 @@ class LoginActivity : AppCompatActivity() {
                 )
             }
         }
-        return zonasEscalada
     }
 
     private fun getSectores(referenciaZona : String): MutableList<Sectores>{

@@ -21,6 +21,8 @@ import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
+import com.lorenzohamaoka.proyectoclimb.LoginActivity
+import com.lorenzohamaoka.proyectoclimb.LoginActivity.Companion.zonasArray
 import com.lorenzohamaoka.proyectoclimb.MainActivity
 
 import com.lorenzohamaoka.proyectoclimb.R
@@ -58,7 +60,7 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListe
         mapView = root.findViewById(R.id.mapView)
         mapView!!.onCreate(mapViewBundle)
         mapView!!.getMapAsync(this)
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(activity!!)
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
 
 
         return root
@@ -121,13 +123,13 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListe
      */
     private fun configMap() {
         if (ActivityCompat.checkSelfPermission(
-                activity!!,
+                requireActivity(),
                 android.Manifest.permission.ACCESS_FINE_LOCATION
             )
             != PackageManager.PERMISSION_GRANTED
         ) {
             ActivityCompat.requestPermissions(
-                activity!!,
+                requireActivity(),
                 arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION),
                 LOCATION_PERMISSION_REQUEST_CODE
             )
@@ -135,7 +137,7 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListe
         }
         // Añadimos la marca en la ubicación que nos encontramos.
         gmap!!.isMyLocationEnabled = true
-        fusedLocationClient.lastLocation.addOnSuccessListener(activity!!) { location ->
+        fusedLocationClient.lastLocation.addOnSuccessListener(requireActivity()) { location ->
             // Vamos a la última ubicación conocida,
             // en algunos casos puede ser null.
             if (location != null) {
@@ -167,25 +169,10 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListe
     }
 
     private fun setMapMarkers(){
-        val db: FirebaseFirestore = FirebaseFirestore.getInstance()
-        val zonasCollection: CollectionReference = db.collection("zonas")
-
-        // Obtener todos los documentos de una colección (sin escucha).
-        zonasCollection.get().apply {
-            addOnSuccessListener {
-                for (document in it) {
-                    Log.d("DOC", "${document.id} => ${document.data}")
-                    var latLng = LatLng(document["latitud"].toString().toDouble(), document["longitud"].toString().toDouble())
-                    placeMarkerOnMap(latLng, document["nombre"].toString())
-                }
-            }
-            addOnFailureListener { exception ->
-                Log.d(
-                    "DOC",
-                    "Error durante la recogida de documentos: ",
-                    exception
-                )
-            }
+        for (document in LoginActivity.zonasArray) {
+            Log.d("DOC", "${document.referencia} => ${document.nombreZona}")
+            var latLng = LatLng(document.latitud!!, document.longitud!!)
+            placeMarkerOnMap(latLng, document.nombreZona!!)
         }
     }
 
@@ -210,14 +197,14 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListe
 
 
     private fun getReferenciaZona(){
-        for(zona in MainActivity.zonasArray){
+        for(zona in zonasArray){
             if(zona.nombreZona == currentMarker)
                 referenciaZona = zona.referencia
         }
     }
 
     private fun getCoordenadasZona(){
-        for(zona in MainActivity.zonasArray){
+        for(zona in zonasArray){
             if(zona.nombreZona == currentMarker)
                 latitudZona = zona.latitud.toString()
             longitudZona = zona.longitud.toString()

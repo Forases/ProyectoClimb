@@ -7,13 +7,13 @@ import android.view.ViewGroup
 import android.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
+import com.lorenzohamaoka.proyectoclimb.LoginActivity
 import com.lorenzohamaoka.proyectoclimb.R
-import com.lorenzohamaoka.proyectoclimb.models.Quote
+import dam.lorenzohamaoka.climbingapp.models.ZonasEscalada
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.fragment_buscar.*
 import kotlinx.android.synthetic.main.search_item.view.*
 import java.util.*
-import kotlin.collections.ArrayList
 
 class BuscarFragment : Fragment() {
 
@@ -31,37 +31,24 @@ class BuscarFragment : Fragment() {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 return false
             }
-
-            override fun onQueryTextChange(newText: String?): Boolean {
-
-                val text = newText
+            override fun onQueryTextChange(text: String?): Boolean {
                 /*Call filter Method Created in Custom Adapter
                     This Method Filter ListView According to Search Keyword
                  */
-                adapter.filter(text)
+                adapter.filter(text, LoginActivity.zonasArray)
                 return false
             }
         })
 
-        val items = mutableListOf(
-            Quote("optimization is the root of all evil", null),
-            Quote("Anytechnology is indistinguishable from magic.", "Arthur C. Clarke"),
-            Quote("Content 01", "Source"),
-            Quote("Content 02", "Source"),
-            Quote("Content 03", "Source"),
-            Quote("Content 04", "Source"),
-            Quote("Content 05", "Source")
-        )
-
-        adapter = MyQuoteAdapter(items)
-        adapter.replaceItems(items)
+        adapter = MyQuoteAdapter()
+        //adapter.replaceItems(LoginActivity.zonasArray)
         list.adapter = adapter
     }
 
-    class MyQuoteAdapter (items: MutableList<Quote>) : RecyclerView.Adapter<MyQuoteAdapter.ViewHolder>() {
-        private var quoteItems = items
+    class MyQuoteAdapter: RecyclerView.Adapter<MyQuoteAdapter.ViewHolder>() {
+        private var quoteItems: MutableList<ZonasEscalada> = arrayListOf()
         //Store image and arraylist in Temp Array List we Required it later
-        var tempListZonas = ArrayList(quoteItems)
+        var tempListZonas: MutableList<ZonasEscalada> = arrayListOf()
 
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -73,40 +60,31 @@ class BuscarFragment : Fragment() {
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
             val item = quoteItems[position]
 
-            holder.itemView.search_nombre_zona.text = item.content
-            holder.itemView.search_localidad.text = item.source
+            holder.itemView.search_nombre_zona.text = item.nombreZona
+            holder.itemView.search_localidad.text = item.localidad
         }
 
-        fun replaceItems(items: MutableList<Quote>) {
+        fun replaceItems(items: MutableList<ZonasEscalada>) {
             this.quoteItems = items
             notifyDataSetChanged()
         }
 
         //Function to set data according to Search Keyword in ListView
-        fun filter(text: String?) {
+        fun filter(text: String?, items: MutableList<ZonasEscalada>) {
             //Our Search text
             val text = text!!.toLowerCase(Locale.getDefault())
 
+            tempListZonas.clear()
             quoteItems.clear()
+            tempListZonas.addAll(items)
 
-            if (text.length == 0) {
-
-                /*If Search query is Empty than we add all temp data into our main ArrayList
-                We store Value in temp in Starting of Program.
+            for (i in 0 until tempListZonas.size) {
+                /*
+                If our Search query is not empty thEn we Check Our search keyword in Temp ArrayList.
+                if our Search Keyword in Temp ArrayList than we add to our Main ArrayList
                 */
-                quoteItems.addAll(tempListZonas)
-            } else {
-
-
-                for (i in 0..tempListZonas.size - 1) {
-                    /*
-                    If our Search query is not empty thEn we Check Our search keyword in Temp ArrayList.
-                    if our Search Keyword in Temp ArrayList than we add to our Main ArrayList
-                    */
-                    if (tempListZonas.get(i).content.toLowerCase(Locale.getDefault()).contains(text)) {
-                        quoteItems.add(tempListZonas.get(i))
-                    }
-
+                if (tempListZonas[i].nombreZona!!.toLowerCase(Locale.getDefault()).contains(text)) {
+                    quoteItems.add(tempListZonas[i])
                 }
             }
             //This is to notify that data change in Adapter and Reflect the changes.

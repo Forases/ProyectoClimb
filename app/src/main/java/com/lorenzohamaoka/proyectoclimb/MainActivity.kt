@@ -16,10 +16,6 @@ import dam.lorenzohamaoka.climbingapp.models.ZonasEscalada
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
-    companion object {
-        private const val LOCATION_PERMISSION_REQUEST_CODE = 1
-        var zonasArray: MutableList<ZonasEscalada> = arrayListOf()
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
