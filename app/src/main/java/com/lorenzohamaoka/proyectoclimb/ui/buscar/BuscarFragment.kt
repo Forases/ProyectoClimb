@@ -61,7 +61,7 @@ class BuscarFragment : Fragment() {
     class MyQuoteAdapter (items: MutableList<Quote>) : RecyclerView.Adapter<MyQuoteAdapter.ViewHolder>() {
         private var quoteItems = items
         //Store image and arraylist in Temp Array List we Required it later
-        var tempQuoteList = ArrayList(quoteItems)
+        var tempListZonas = ArrayList(quoteItems)
 
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -94,17 +94,17 @@ class BuscarFragment : Fragment() {
                 /*If Search query is Empty than we add all temp data into our main ArrayList
                 We store Value in temp in Starting of Program.
                 */
-                quoteItems.addAll(tempQuoteList)
+                quoteItems.addAll(tempListZonas)
             } else {
 
 
-                for (i in 0..tempQuoteList.size - 1) {
+                for (i in 0..tempListZonas.size - 1) {
                     /*
                     If our Search query is not empty thEn we Check Our search keyword in Temp ArrayList.
                     if our Search Keyword in Temp ArrayList than we add to our Main ArrayList
                     */
-                    if (tempQuoteList.get(i).content.toLowerCase(Locale.getDefault()).contains(text)) {
-                        quoteItems.add(tempQuoteList.get(i))
+                    if (tempListZonas.get(i).content.toLowerCase(Locale.getDefault()).contains(text)) {
+                        quoteItems.add(tempListZonas.get(i))
                     }
 
                 }
