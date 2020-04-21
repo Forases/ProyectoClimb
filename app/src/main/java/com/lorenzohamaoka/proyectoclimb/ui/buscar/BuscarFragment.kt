@@ -1,11 +1,14 @@
 package com.lorenzohamaoka.proyectoclimb.ui.buscar
 
+import android.hardware.SensorManager.getOrientation
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.lorenzohamaoka.proyectoclimb.LoginActivity
 import com.lorenzohamaoka.proyectoclimb.R
@@ -14,6 +17,7 @@ import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.fragment_buscar.*
 import kotlinx.android.synthetic.main.search_item.view.*
 import java.util.*
+
 
 class BuscarFragment : Fragment() {
 
@@ -41,8 +45,13 @@ class BuscarFragment : Fragment() {
         })
 
         adapter = MyQuoteAdapter()
-        //adapter.replaceItems(LoginActivity.zonasArray)
-        list.adapter = adapter
+
+        val mDividerItemDecoration = DividerItemDecoration(
+            search_list.context,
+            LinearLayoutManager.VERTICAL
+        )
+        search_list.addItemDecoration(mDividerItemDecoration);
+        search_list.adapter = adapter
     }
 
     class MyQuoteAdapter: RecyclerView.Adapter<MyQuoteAdapter.ViewHolder>() {
