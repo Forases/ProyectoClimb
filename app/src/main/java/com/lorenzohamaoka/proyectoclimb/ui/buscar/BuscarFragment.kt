@@ -83,7 +83,7 @@ class BuscarFragment : Fragment() {
             tempListZonas.addAll(items)
 
             if (text.isEmpty()) {
-                searchItems.clear()
+                notifyDataSetChanged()
             } else {
                 for (i in 0 until tempListZonas.size) {
                     /*
@@ -94,9 +94,8 @@ class BuscarFragment : Fragment() {
                         searchItems.add(tempListZonas[i])
                     }
                 }
+                notifyDataSetChanged()
             }
-            //This is to notify that data change in Adapter and Reflect the changes.
-            notifyDataSetChanged()
         }
 
         override fun getItemCount(): Int = searchItems.size
