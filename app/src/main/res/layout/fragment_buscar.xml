@@ -24,5 +24,6 @@
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/searchView"
-        tools:context=".view.MyQuoteListFragment" />
+        tools:context=".view.MyQuoteListFragment"
+        android:background="@drawable/gradient"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

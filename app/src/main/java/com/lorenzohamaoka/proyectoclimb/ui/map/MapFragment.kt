@@ -155,7 +155,8 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListe
                 )
             }
             for (document in zonasArray) {
-                document.distancia = Utils.distance(document.latitud!!, document.longitud!!, currentLatLng!!.latitude, currentLatLng!!.longitude)
+                document.distancia = Utils.distance(document.latitud!!,
+                    document.longitud!!, currentLatLng!!.latitude, currentLatLng!!.longitude)
             }
 
         }
