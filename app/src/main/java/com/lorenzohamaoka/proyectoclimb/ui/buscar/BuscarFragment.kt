@@ -1,6 +1,5 @@
 package com.lorenzohamaoka.proyectoclimb.ui.buscar
 
-import android.hardware.SensorManager.getOrientation
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -21,7 +20,7 @@ import java.util.*
 
 class BuscarFragment : Fragment() {
 
-    private lateinit var adapter: MyQuoteAdapter
+    private lateinit var adapter: MySearchAdapter
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -44,7 +43,7 @@ class BuscarFragment : Fragment() {
             }
         })
 
-        adapter = MyQuoteAdapter()
+        adapter = MySearchAdapter()
 
         val mDividerItemDecoration = DividerItemDecoration(
             search_list.context,
@@ -54,8 +53,8 @@ class BuscarFragment : Fragment() {
         search_list.adapter = adapter
     }
 
-    class MyQuoteAdapter: RecyclerView.Adapter<MyQuoteAdapter.ViewHolder>() {
-        private var quoteItems: MutableList<ZonasEscalada> = arrayListOf()
+    class MySearchAdapter: RecyclerView.Adapter<MySearchAdapter.ViewHolder>() {
+        private var searchItems: MutableList<ZonasEscalada> = arrayListOf()
         //Store image and arraylist in Temp Array List we Required it later
         var tempListZonas: MutableList<ZonasEscalada> = arrayListOf()
 
@@ -67,16 +66,11 @@ class BuscarFragment : Fragment() {
         }
 
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-            val item = quoteItems[position]
+            val item = searchItems[position]
 
             holder.itemView.search_nombre_zona.text = item.nombreZona
             holder.itemView.search_localidad.text = item.localidad
             holder.itemView.search_distancia.text = "(" + item.distancia.toString() + " km)"
-        }
-
-        fun replaceItems(items: MutableList<ZonasEscalada>) {
-            this.quoteItems = items
-            notifyDataSetChanged()
         }
 
         //Function to set data according to Search Keyword in ListView
@@ -85,23 +79,27 @@ class BuscarFragment : Fragment() {
             val text = text!!.toLowerCase(Locale.getDefault())
 
             tempListZonas.clear()
-            quoteItems.clear()
+            searchItems.clear()
             tempListZonas.addAll(items)
 
-            for (i in 0 until tempListZonas.size) {
-                /*
-                If our Search query is not empty thEn we Check Our search keyword in Temp ArrayList.
-                if our Search Keyword in Temp ArrayList than we add to our Main ArrayList
-                */
-                if (tempListZonas[i].nombreZona!!.toLowerCase(Locale.getDefault()).contains(text)) {
-                    quoteItems.add(tempListZonas[i])
+            if (text.isEmpty()) {
+                searchItems.clear()
+            } else {
+                for (i in 0 until tempListZonas.size) {
+                    /*
+                    If our Search query is not empty thEn we Check Our search keyword in Temp ArrayList.
+                    if our Search Keyword in Temp ArrayList than we add to our Main ArrayList
+                    */
+                    if (tempListZonas[i].nombreZona!!.toLowerCase(Locale.getDefault()).contains(text)) {
+                        searchItems.add(tempListZonas[i])
+                    }
                 }
             }
             //This is to notify that data change in Adapter and Reflect the changes.
             notifyDataSetChanged()
         }
 
-        override fun getItemCount(): Int = quoteItems.size
+        override fun getItemCount(): Int = searchItems.size
 
         inner class ViewHolder(override val containerView: View) :
             RecyclerView.ViewHolder(containerView),
