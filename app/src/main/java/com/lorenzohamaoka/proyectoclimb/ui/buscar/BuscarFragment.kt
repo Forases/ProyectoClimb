@@ -1,6 +1,5 @@
 package com.lorenzohamaoka.proyectoclimb.ui.buscar
 
-import android.hardware.SensorManager.getOrientation
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -21,7 +20,7 @@ import java.util.*
 
 class BuscarFragment : Fragment() {
 
-    private lateinit var adapter: MyQuoteAdapter
+    private lateinit var adapter: MySearchAdapter
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -44,7 +43,7 @@ class BuscarFragment : Fragment() {
             }
         })
 
-        adapter = MyQuoteAdapter()
+        adapter = MySearchAdapter()
 
         val mDividerItemDecoration = DividerItemDecoration(
             search_list.context,
@@ -54,7 +53,7 @@ class BuscarFragment : Fragment() {
         search_list.adapter = adapter
     }
 
-    class MyQuoteAdapter: RecyclerView.Adapter<MyQuoteAdapter.ViewHolder>() {
+    class MySearchAdapter: RecyclerView.Adapter<MySearchAdapter.ViewHolder>() {
         private var quoteItems: MutableList<ZonasEscalada> = arrayListOf()
         //Store image and arraylist in Temp Array List we Required it later
         var tempListZonas: MutableList<ZonasEscalada> = arrayListOf()
@@ -71,12 +70,7 @@ class BuscarFragment : Fragment() {
 
             holder.itemView.search_nombre_zona.text = item.nombreZona
             holder.itemView.search_localidad.text = item.localidad
-            holder.itemView.search_distancia.text = "(" + item.distancia.toString() + " km)"
-        }
-
-        fun replaceItems(items: MutableList<ZonasEscalada>) {
-            this.quoteItems = items
-            notifyDataSetChanged()
+            holder.itemView.search_distancia.text = "(" + item.distancia + " km)"
         }
 
         //Function to set data according to Search Keyword in ListView
