@@ -47,7 +47,7 @@ class LoginActivity : AppCompatActivity() {
 
     fun openMainActivity(){
         // Creamos un objeto de tipo Intent
-        val myIntent = Intent(this, MainActivity::class.java)
+        val myIntent = Intent(this, ZonasActivity::class.java)
         // Lanzamos la activity
         startActivity(myIntent)
         finish()
