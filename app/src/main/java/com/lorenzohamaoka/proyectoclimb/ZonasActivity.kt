@@ -26,21 +26,21 @@ class ZonasActivity : AppCompatActivity() {
         entries.add(BarEntry(15f, 4))
         entries.add(BarEntry(19f, 5))
 
-        val barDataSet = BarDataSet(entries, "Cells")
+        val barDataSet = BarDataSet(entries, "Vías")
 
         val labels = ArrayList<String>()
-        labels.add("18-Jan")
-        labels.add("19-Jan")
-        labels.add("20-Jan")
-        labels.add("21-Jan")
-        labels.add("22-Jan")
-        labels.add("23-Jan")
+        labels.add("3-4+")
+        labels.add("5-5+")
+        labels.add("6a-6c+")
+        labels.add("7a-7c+")
+        labels.add("8a-8c+")
+        labels.add("9a-9b")
         val data = BarData(labels, barDataSet)
         barChart.data = data // set the data and list of lables into chart
 
-        barChart.setDescription("Set Bar Chart Description")  // set the description
+        barChart.setDescription("Vías por grado de dificultad")  // set the description
 
-        //barDataSet.setColors(ColorTemplate.COLORFUL_COLORS)
+//        barDataSet.setColors(ColorTemplate.COLORFUL_COLORS)
         barDataSet.color = resources.getColor(R.color.colorAccent)
 
         barChart.animateY(3000)
