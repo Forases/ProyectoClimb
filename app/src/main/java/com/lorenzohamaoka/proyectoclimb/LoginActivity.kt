@@ -47,7 +47,7 @@ class LoginActivity : AppCompatActivity() {
 
     fun openMainActivity(){
         // Creamos un objeto de tipo Intent
-        val myIntent = Intent(this, ZonasActivity::class.java)
+        val myIntent = Intent(this, MainActivity::class.java)
         // Lanzamos la activity
         startActivity(myIntent)
         finish()
@@ -157,7 +157,6 @@ class LoginActivity : AppCompatActivity() {
                 // Fallo en la autenticación.
                 if (!task.isSuccessful) {
                     getZonas()
-                    //status.setText(R.string.auth_failed)
                 }
             }
     }

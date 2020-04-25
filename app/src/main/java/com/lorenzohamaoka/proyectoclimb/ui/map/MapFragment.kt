@@ -1,6 +1,7 @@
 package com.lorenzohamaoka.proyectoclimb.ui.map
 
 import android.app.ActionBar
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
@@ -24,13 +25,17 @@ import com.lorenzohamaoka.proyectoclimb.LoginActivity.Companion.zonasArray
 
 import com.lorenzohamaoka.proyectoclimb.R
 import com.lorenzohamaoka.proyectoclimb.Utils
+import com.lorenzohamaoka.proyectoclimb.ZonasActivity
+import dam.lorenzohamaoka.climbingapp.models.ZonasEscalada
+
+const val NOMBRE_ZONA = "NOMBRE_ZONA"
 
 class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
     companion object {
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1
+
         var referenciaZona: String? = null
-        var latitudZona: String? = null
-        var longitudZona: String? = null
+        var zonaEscalada: ZonasEscalada? = null
     }
     private var mapView: MapView? = null
     private var gmap: GoogleMap? = null
@@ -121,7 +126,7 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListe
      */
     private fun configMap() {
 
-        var currentLatLng: LatLng? = null
+        var currentLatLng: LatLng?
 
         if (ActivityCompat.checkSelfPermission(
                 requireActivity(),
@@ -186,33 +191,22 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListe
      * se implementa al heredar de GoogleMap.OnMarkerClickListener.
      */
     override fun onMarkerClick(p0: Marker?): Boolean {
-        Log.d("onMarkerClick", "Click sobre una marca")
 
         currentMarker = p0!!.title.toString()
-        getReferenciaZona()
-        getCoordenadasZona()
-//        val myIntent = Intent(this, SectoresActivity::class.java).apply{
-//            putExtra(NOMBRE_ZONA, currentMarker)
-//        }
-//        // Lanzamos la activity
-//        startActivity(myIntent)
+        getZona(currentMarker)
+        val myIntent = Intent(activity , ZonasActivity::class.java).apply{
+            putExtra(NOMBRE_ZONA, currentMarker)
+        }
+        // Lanzamos la activity
+        startActivity(myIntent)
         return false
     }
 
-
-
-    private fun getReferenciaZona(){
+    private fun getZona(nombreZona: String?){
         for(zona in zonasArray){
-            if(zona.nombreZona == currentMarker)
-                referenciaZona = zona.referencia
-        }
-    }
-
-    private fun getCoordenadasZona(){
-        for(zona in zonasArray){
-            if(zona.nombreZona == currentMarker)
-                latitudZona = zona.latitud.toString()
-            longitudZona = zona.longitud.toString()
+            if(zona.nombreZona == nombreZona){
+                zonaEscalada = zona
+            }
         }
     }
 }
