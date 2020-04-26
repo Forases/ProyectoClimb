@@ -20,12 +20,9 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
-import com.lorenzohamaoka.proyectoclimb.LoginActivity
+import com.lorenzohamaoka.proyectoclimb.*
 import com.lorenzohamaoka.proyectoclimb.LoginActivity.Companion.zonasArray
 
-import com.lorenzohamaoka.proyectoclimb.R
-import com.lorenzohamaoka.proyectoclimb.Utils
-import com.lorenzohamaoka.proyectoclimb.ZonasActivity
 import dam.lorenzohamaoka.climbingapp.models.ZonasEscalada
 
 const val NOMBRE_ZONA = "NOMBRE_ZONA"
@@ -33,9 +30,6 @@ const val NOMBRE_ZONA = "NOMBRE_ZONA"
 class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
     companion object {
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1
-
-        var referenciaZona: String? = null
-        var zonaEscalada: ZonasEscalada? = null
     }
     private var mapView: MapView? = null
     private var gmap: GoogleMap? = null
@@ -205,7 +199,7 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListe
     private fun getZona(nombreZona: String?){
         for(zona in zonasArray){
             if(zona.nombreZona == nombreZona){
-                zonaEscalada = zona
+                MainActivity.zonaEscalada = zona
             }
         }
     }

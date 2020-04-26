@@ -16,6 +16,9 @@ import dam.lorenzohamaoka.climbingapp.models.ZonasEscalada
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
+    companion object {
+        var zonaEscalada: ZonasEscalada? = null
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

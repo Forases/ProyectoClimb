@@ -13,7 +13,7 @@ class ViewPagerFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_view_pager, container, false)
+        return inflater.inflate(R.layout.item_view_pager, container, false)
     }
 
 }

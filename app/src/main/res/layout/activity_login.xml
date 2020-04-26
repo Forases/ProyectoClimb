@@ -28,6 +28,7 @@
         android:ems="10"
         android:hint="Email"
         android:inputType="textPersonName"
+        android:text="daitaku84@hotmail.com"
         android:textSize="16dp" />
 
     <EditText
@@ -44,13 +45,14 @@
         android:drawableLeft="@drawable/ic_action_pass"
         android:ems="10"
         android:hint="Contraseña"
-        android:inputType="textPassword" />
+        android:inputType="textPassword"
+        android:text="123456" />
 
     <androidx.cardview.widget.CardView
         android:layout_width="300dp"
         android:layout_height="50dp"
         app:cardBackgroundColor="@color/colorAccent"
-        app:cardCornerRadius="25dp"
+        app:cardCornerRadius="15dp"
         app:cardElevation="10dp"
         android:id="@+id/logCardView"
         android:layout_marginBottom="31dp"

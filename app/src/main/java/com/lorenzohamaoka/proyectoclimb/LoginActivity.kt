@@ -143,7 +143,7 @@ class LoginActivity : AppCompatActivity() {
                     Log.d(TAG, "signInWithEmail:success")
                     val user = auth.currentUser
                     //updateUI(user)
-//                    getZonas()
+                    getZonas()
                 } else {
                     // Login fallido, mostramos un mensaje de error.
                     Log.w(TAG, "signInWithEmail:failure", task.exception)
@@ -156,7 +156,7 @@ class LoginActivity : AppCompatActivity() {
                 }
                 // Fallo en la autenticación.
                 if (!task.isSuccessful) {
-                    getZonas()
+//                    getZonas()
                 }
             }
     }
@@ -226,7 +226,8 @@ class LoginActivity : AppCompatActivity() {
                 sectores.add(
                     Sectores(
                         document.id,
-                        document["nombre"].toString()
+                        document["nombre"].toString(),
+                        document["portadaReferencia"].toString()
                     )
                 )
 
