@@ -17,10 +17,6 @@ class ZonasActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_zonas)
 
-//        viewPager = findViewById(R.id.viewpager)
-//        viewPager!!.adapter = MyAdapter(supportFragmentManager, lifecycle)
-//        viewPager!!.orientation = ViewPager2.ORIENTATION_HORIZONTAL
-
         setBarChart()
 
         titulo_zonas_activity.text = zonaEscalada?.nombreZona
@@ -73,25 +69,4 @@ class ZonasActivity : AppCompatActivity() {
 
         barChart.animateY(3000)
     }
-
-//    private inner class ViewPagerAdapter(referenciaImagenes: List<String?>) : FragmentStateAdapter(fm!!, lifecycle) {
-//        private val int_items = 5
-//
-//        override fun createFragment(position: Int): Fragment {
-//            var fragment: Fragment? = null
-//            when (position) {
-//                0 -> fragment = ViewPagerFragment()
-//                1 -> fragment = MapFragment()
-//                2 -> fragment = ViewPagerFragment()
-//                3 -> fragment = ViewPagerFragment()
-//                4 -> fragment = ViewPagerFragment()
-//            }
-//            return fragment!!
-//        }
-//
-//        override fun getItemCount(): Int {
-//            return int_items
-//        }
-//
-//    }
 }
