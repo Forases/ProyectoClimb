@@ -9,7 +9,7 @@
     <RelativeLayout
         android:id="@+id/portadaLAyout"
         android:layout_width="0dp"
-        android:layout_height="200dp"
+        android:layout_height="250dp"
         android:background="@android:color/holo_orange_light"
         android:padding="0dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -19,22 +19,12 @@
         <ImageView
             android:id="@+id/imagen_zonas_activity"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
+            android:layout_marginTop="0dp"
             android:scaleType="fitXY" />
 
-        <TextView
-            android:id="@+id/titulo_zonas_activity"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/imagen_zona"
-            android:layout_centerHorizontal="true"
-            android:background="#80000000"
-            android:ellipsize="end"
-            android:gravity="center"
-            android:lines="1"
-            android:padding="8dp"
-            android:textAppearance="?android:attr/textAppearanceLargeInverse" />
     </RelativeLayout>
 
 
@@ -249,23 +239,24 @@
         </androidx.cardview.widget.CardView>
     </androidx.gridlayout.widget.GridLayout>
 
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/viewpager"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/gridLayout" />
+<!--    <androidx.viewpager2.widget.ViewPager2-->
+<!--        android:id="@+id/viewpager"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="200dp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/gridLayout" />-->
 
     <com.github.mikephil.charting.charts.BarChart
         android:id="@+id/barChart"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="224dp"
+        android:layout_height="153dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="128dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.492"
         app:layout_constraintHorizontal_weight="1"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/viewpager"
         app:layout_constraintVertical_weight="1" />
 
