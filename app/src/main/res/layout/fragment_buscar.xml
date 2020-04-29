@@ -9,6 +9,7 @@
 
     <SearchView
         android:id="@+id/searchView"
+        android:hint="hola"
         android:layout_width="0dp"
         android:layout_height="41dp"
         android:layout_marginStart="5dp"

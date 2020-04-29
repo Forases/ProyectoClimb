@@ -1,5 +1,7 @@
 package com.lorenzohamaoka.proyectoclimb
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
@@ -30,6 +32,15 @@ class ZonasActivity : AppCompatActivity() {
         restricciones_zonas_activity.text = zonaEscalada?.restricciones
 
         setImage(zonaEscalada?.referenciaPortada, this, this.imagen_zonas_activity)
+
+        boton_ruta.setOnClickListener {
+            val intent = Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse("http://maps.google.com/maps?&daddr=" + zonaEscalada?.latitud +
+                        "," + zonaEscalada?.longitud)
+            )
+            startActivity(intent)
+        }
 
 //        val adapter = ViewPagerAdapter(zonaEscalada!!.sectores)
 //        viewpager.adapter = adapter
