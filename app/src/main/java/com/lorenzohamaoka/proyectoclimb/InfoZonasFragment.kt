@@ -41,13 +41,8 @@ class InfoZonasFragment : Fragment() {
         roca_zonas_activity.text = MainActivity.zonaEscalada?.tipoRoca
         restricciones_zonas_activity.text = MainActivity.zonaEscalada?.restricciones
 
-        activity?.imagen_zonas_activity?.let {
-            Utils.setImage(
-                MainActivity.zonaEscalada?.referenciaPortada,
-                this,
-                it
-            )
-        }
+
+
         setBarChart()
 
         boton_ruta.setOnClickListener {
@@ -74,8 +69,8 @@ class InfoZonasFragment : Fragment() {
         barDataSet.setDrawValues(true)
 
         val startColor1 = resources.getColor(android.R.color.holo_blue_light)
-        val startColor2 = resources.getColor(android.R.color.holo_green_light)
-        val startColor3 = resources.getColor(android.R.color.holo_green_dark)
+        val startColor2 = resources.getColor(android.R.color.holo_green_dark)
+        val startColor3 = resources.getColor(android.R.color.holo_green_light)
         val startColor4 = resources.getColor( android.R.color.holo_orange_light)
         val startColor5 = resources.getColor( android.R.color.holo_orange_dark)
         val startColor6 = resources.getColor( android.R.color.holo_red_light)

@@ -1,8 +1,6 @@
 package dam.lorenzohamaoka.climbingapp.models
 
-import android.util.Log
-import com.google.firebase.firestore.CollectionReference
-import com.google.firebase.firestore.FirebaseFirestore
+import com.lorenzohamaoka.proyectoclimb.models.Sectores
 
 class ZonasEscalada {
     var referenciaPortada: String? = null

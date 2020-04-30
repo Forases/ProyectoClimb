@@ -1,14 +1,21 @@
-package dam.lorenzohamaoka.climbingapp.models
+package com.lorenzohamaoka.proyectoclimb.models
 
 class Sectores {
 
     var referenciaSector: String? = null
     var nombreSector: String? = null
     var referenciaImagen: String? = null
+    var vias : MutableList<Vias>? = null
 
-    constructor(referenciaSector: String?, nombreSector: String?, referenciaImagen: String?) {
+    constructor(
+        referenciaSector: String?,
+        nombreSector: String?,
+        referenciaImagen: String?,
+        vias: MutableList<Vias>?
+    ) {
         this.referenciaSector = referenciaSector
         this.nombreSector = nombreSector
         this.referenciaImagen = referenciaImagen
+        this.vias = vias
     }
 }

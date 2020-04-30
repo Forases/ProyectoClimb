@@ -1,5 +1,7 @@
 package com.lorenzohamaoka.proyectoclimb
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -9,6 +11,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.lorenzohamaoka.proyectoclimb.ZonasActivity.Companion.sectoresArray
+import com.lorenzohamaoka.proyectoclimb.models.Sectores
+import com.lorenzohamaoka.proyectoclimb.models.Vias
+import dam.lorenzohamaoka.climbingapp.models.ZonasEscalada
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.fragment_lista_sectores.*
 import kotlinx.android.synthetic.main.item_sectores_escalada.view.*
@@ -20,6 +25,9 @@ import kotlinx.android.synthetic.main.item_sectores_escalada.view.*
  * create an instance of this fragment.
  */
 class ListaSectoresFragment : Fragment() {
+    companion object{
+        var viasEscalada: MutableList<Vias>? = arrayListOf()
+    }
 
     private lateinit var adapter: SectoresListAdapter
 
@@ -55,6 +63,8 @@ class ListaSectoresFragment : Fragment() {
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
             val item = sectoresItems[position]
             holder.itemView.nombre_sector.text = item.nombreSector
+
+            holder.bind(item, holder.containerView.context)
         }
 
         override fun getItemCount(): Int {
@@ -63,7 +73,18 @@ class ListaSectoresFragment : Fragment() {
 
         inner class ViewHolder(override val containerView: View) :
             RecyclerView.ViewHolder(containerView),
-            LayoutContainer
+            LayoutContainer{
+
+            fun bind(sector: Sectores, context: Context) {
+
+                itemView.setOnClickListener {
+                    MainActivity.sectorEscalada = sector
+                    viasEscalada = sector.vias
+                    val myIntent = Intent(context, SectoresActivity::class.java)
+                    context.startActivity(myIntent)
+                }
+            }
+        }
     }
 
 }

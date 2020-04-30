@@ -9,9 +9,8 @@ import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
-import com.lorenzohamaoka.proyectoclimb.MainActivity
-import com.lorenzohamaoka.proyectoclimb.R
-import dam.lorenzohamaoka.climbingapp.models.Sectores
+import com.lorenzohamaoka.proyectoclimb.models.Vias
+import com.lorenzohamaoka.proyectoclimb.models.Sectores
 import dam.lorenzohamaoka.climbingapp.models.ZonasEscalada
 import kotlinx.android.synthetic.main.activity_login.*
 
@@ -165,7 +164,6 @@ class LoginActivity : AppCompatActivity() {
 
         val db: FirebaseFirestore = FirebaseFirestore.getInstance()
         val zonasCollection: CollectionReference = db.collection("zonas")
-
         // Obtener todos los documentos de una colección (sin escucha).
         zonasCollection.get().apply {
             addOnSuccessListener {
@@ -227,12 +225,53 @@ class LoginActivity : AppCompatActivity() {
                     Sectores(
                         document.id,
                         document["nombre"].toString(),
-                        document["portadaReferencia"].toString()
+                        document["portadaReferencia"].toString(),
+                        getVias(referenciaZona,document.id)
                     )
                 )
 
             }
         }
         return sectores
+    }
+
+    private fun getVias(referenciaZona : String, referenciaSector : String): MutableList<Vias>{
+
+        val db: FirebaseFirestore = FirebaseFirestore.getInstance()
+        val viasCollection: CollectionReference = db.collection(
+            "zonas")
+            .document(referenciaZona)
+            .collection("sectores")
+            .document(referenciaSector)
+            .collection("vías")
+
+        val vias: MutableList<Vias> = arrayListOf()
+
+        // Obtener todos los documentos de una colección (con escucha).
+        viasCollection.addSnapshotListener { querySnapshot,
+                                                 firebaseFirestoreException ->
+            if (firebaseFirestoreException != null) {
+                Log.w(
+                    "addSnapshotListener",
+                    "Escucha fallida!.",
+                    firebaseFirestoreException
+                )
+                return@addSnapshotListener
+            }
+            for (document in querySnapshot!!) {
+                Log.d("DOC", "${document.id} => ${document.data}")
+                vias.add(
+                    Vias(
+                        document.id,
+                        document["nombre"].toString(),
+                        document["grado"].toString(),
+                        null,
+                        document["tipo"].toString(),
+                        document["numero"].toString().toInt()
+                    )
+                )
+            }
+        }
+        return vias
     }
 }

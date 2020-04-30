@@ -9,7 +9,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayoutMediator
 import com.lorenzohamaoka.proyectoclimb.MainActivity.Companion.zonaEscalada
-import dam.lorenzohamaoka.climbingapp.models.Sectores
+import com.lorenzohamaoka.proyectoclimb.models.Sectores
 import kotlinx.android.synthetic.main.activity_zonas.*
 
 class ZonasActivity : AppCompatActivity() {
@@ -28,6 +28,12 @@ class ZonasActivity : AppCompatActivity() {
 
         title = zonaEscalada?.nombreZona
         sectoresArray = zonaEscalada?.sectores!!
+
+        Utils.setImage(
+            zonaEscalada?.referenciaPortada,
+            this,
+            imagen_zonas_activity
+        )
 
         TabLayoutMediator(zonasTabLayout, viewPager!!) { tab, position ->
             when (position) {

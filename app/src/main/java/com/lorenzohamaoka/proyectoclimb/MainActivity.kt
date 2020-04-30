@@ -3,6 +3,7 @@ package com.lorenzohamaoka.proyectoclimb
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.lorenzohamaoka.proyectoclimb.models.Sectores
 import com.lorenzohamaoka.proyectoclimb.ui.buscar.BuscarFragment
 import com.lorenzohamaoka.proyectoclimb.ui.filtro.FiltroFragment
 import com.lorenzohamaoka.proyectoclimb.ui.lista.ListaZonasFragment
@@ -13,6 +14,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity() {
     companion object {
         var zonaEscalada: ZonasEscalada? = null
+        var sectorEscalada: Sectores? = null
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
