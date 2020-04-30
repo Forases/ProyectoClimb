@@ -85,18 +85,10 @@ class InfoZonasFragment : Fragment() {
 
         barDataSet.colors = colorsArray
 
-//        val labels = ArrayList<String>()
-//        labels.add("3-4+")
-//        labels.add("5-5+")
-//        labels.add("6a-6c+")
-//        labels.add("7a-7c+")
-//        labels.add("8a-8c+")
-//        labels.add("9a-9b")
-
         val xAxis: XAxis = barChart.xAxis
         xAxis.position = XAxis.XAxisPosition.BOTTOM
         xAxis.setDrawGridLines(false)
-//        xAxis.setDrawLabels(false)
+        xAxis.setDrawLabels(false)
 
         val rightAxis: YAxis = barChart.axisRight
         rightAxis.setDrawAxisLine(false)
