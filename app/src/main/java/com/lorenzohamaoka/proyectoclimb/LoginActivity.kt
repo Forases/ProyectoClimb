@@ -165,7 +165,9 @@ class LoginActivity : AppCompatActivity() {
         val db: FirebaseFirestore = FirebaseFirestore.getInstance()
         val zonasCollection: CollectionReference = db.collection("zonas")
         // Obtener todos los documentos de una colección (sin escucha).
-        zonasCollection.get().apply {
+        zonasCollection
+            .orderBy("nombre")
+            .get().apply {
             addOnSuccessListener {
                 for (document in it) {
                     zonasArray.add(
@@ -209,7 +211,9 @@ class LoginActivity : AppCompatActivity() {
         val sectores: MutableList<Sectores> = arrayListOf()
 
         // Obtener todos los documentos de una colección (con escucha).
-        sectoresCollection.addSnapshotListener { querySnapshot,
+        sectoresCollection
+            .orderBy("nombre")
+            .addSnapshotListener { querySnapshot,
                                                  firebaseFirestoreException ->
             if (firebaseFirestoreException != null) {
                 Log.w(
@@ -248,7 +252,9 @@ class LoginActivity : AppCompatActivity() {
         val vias: MutableList<Vias> = arrayListOf()
 
         // Obtener todos los documentos de una colección (con escucha).
-        viasCollection.addSnapshotListener { querySnapshot,
+        viasCollection
+            .orderBy("numero")
+            .addSnapshotListener { querySnapshot,
                                                  firebaseFirestoreException ->
             if (firebaseFirestoreException != null) {
                 Log.w(
