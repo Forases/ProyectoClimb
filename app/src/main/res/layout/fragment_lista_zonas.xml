@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:paddingBottom="?attr/actionBarSize"
-    tools:context=".ui.lista.ListaFragment">
+    tools:context=".ui.lista.ListaZonasFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_zonas_escalada"

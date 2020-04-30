@@ -1,9 +1,7 @@
 package com.lorenzohamaoka.proyectoclimb
 
-import android.app.Activity
 import android.widget.ImageView
 import com.bumptech.glide.Glide
-import kotlinx.android.synthetic.main.activity_zonas.*
 import kotlin.math.acos
 import kotlin.math.cos
 import kotlin.math.sin
@@ -37,7 +35,7 @@ class Utils {
             return rad * 180.0 / Math.PI
         }
 
-        fun setImage(referencia: String?, context: Activity, imageView: ImageView){
+        fun setImage(referencia: String?, context: InfoZonasFragment, imageView: ImageView){
 
             Glide.with(context)
                 .load(referencia)

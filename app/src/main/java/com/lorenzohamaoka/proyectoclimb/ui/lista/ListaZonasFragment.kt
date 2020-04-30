@@ -13,16 +13,16 @@ import com.bumptech.glide.Glide
 import com.lorenzohamaoka.proyectoclimb.LoginActivity
 import com.lorenzohamaoka.proyectoclimb.R
 import kotlinx.android.extensions.LayoutContainer
-import kotlinx.android.synthetic.main.fragment_lista.*
+import kotlinx.android.synthetic.main.fragment_lista_zonas.*
 import kotlinx.android.synthetic.main.item_zonas_escalada.view.*
 
 
-class ListaFragment : Fragment() {
+class ListaZonasFragment : Fragment() {
 
     private lateinit var adapter: ZonasListAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_lista, container, false)
+        return inflater.inflate(R.layout.fragment_lista_zonas, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

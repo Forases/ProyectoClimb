@@ -1,16 +1,11 @@
 package com.lorenzohamaoka.proyectoclimb
 
 import android.os.Bundle
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.navigation.findNavController
-import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
 import com.lorenzohamaoka.proyectoclimb.ui.buscar.BuscarFragment
 import com.lorenzohamaoka.proyectoclimb.ui.filtro.FiltroFragment
-import com.lorenzohamaoka.proyectoclimb.ui.lista.ListaFragment
+import com.lorenzohamaoka.proyectoclimb.ui.lista.ListaZonasFragment
 import com.lorenzohamaoka.proyectoclimb.ui.map.MapFragment
 import dam.lorenzohamaoka.climbingapp.models.ZonasEscalada
 import kotlinx.android.synthetic.main.activity_main.*
@@ -44,7 +39,7 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 R.id.navigation_lista-> {
-                    loadFragment(ListaFragment())
+                    loadFragment(ListaZonasFragment())
                     return@setOnNavigationItemSelectedListener true
                 }
 
