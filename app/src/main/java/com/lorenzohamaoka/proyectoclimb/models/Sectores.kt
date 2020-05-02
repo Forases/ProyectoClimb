@@ -5,7 +5,8 @@ class Sectores {
     var referenciaSector: String? = null
     var nombreSector: String? = null
     var referenciaImagen: String? = null
-    var vias : MutableList<Vias>? = null
+    var vias: MutableList<Vias>? = null
+    var arrayGradosPorVia = arrayOf(0, 0, 0, 0, 0, 0)
 
     constructor(
         referenciaSector: String?,

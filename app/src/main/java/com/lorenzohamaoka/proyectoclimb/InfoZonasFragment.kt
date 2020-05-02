@@ -1,5 +1,6 @@
 package com.lorenzohamaoka.proyectoclimb
 
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -7,13 +8,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.ViewModelProviders
+import com.github.mikephil.charting.charts.BarChart
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.components.YAxis
 import com.github.mikephil.charting.data.BarData
 import com.github.mikephil.charting.data.BarDataSet
 import com.github.mikephil.charting.data.BarEntry
-import kotlinx.android.synthetic.main.activity_zonas.*
+import com.lorenzohamaoka.proyectoclimb.MainActivity.Companion.zonaEscalada
+import com.lorenzohamaoka.proyectoclimb.Utils.Companion.getDatosGrafica
+import com.lorenzohamaoka.proyectoclimb.Utils.Companion.getGradoVias
 import kotlinx.android.synthetic.main.fragment_info_zonas.*
 import java.util.ArrayList
 
@@ -35,34 +38,45 @@ class InfoZonasFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        localidad_zonas_activity.text = MainActivity.zonaEscalada?.localidad
-        orientacion_zonas_activity.text = MainActivity.zonaEscalada?.orientacion
-        tipo_zonas_activity.text = MainActivity.zonaEscalada?.tipoEscalada
-        roca_zonas_activity.text = MainActivity.zonaEscalada?.tipoRoca
-        restricciones_zonas_activity.text = MainActivity.zonaEscalada?.restricciones
+        var arraySectores = zonaEscalada?.sectores
+        var arrayContadorVias = arrayOf(0,0,0,0,0,0)
+
+        if (arraySectores != null) {
+            for(sector in arraySectores){
+                var arrayGrados = getGradoVias(sector.vias)
+                sector.arrayGradosPorVia = arrayGrados
+                arrayContadorVias += arrayGrados
+            }
+            arrayContadorVias = getDatosGrafica(arraySectores)
+                localidad_zonas_activity.text = zonaEscalada?.localidad
+        }
+        orientacion_zonas_activity.text = zonaEscalada?.orientacion
+        tipo_zonas_activity.text = zonaEscalada?.tipoEscalada
+        roca_zonas_activity.text = zonaEscalada?.tipoRoca
+        restricciones_zonas_activity.text = zonaEscalada?.restricciones
 
 
 
-        setBarChart()
+        setBarChart(arrayContadorVias)
 
         boton_ruta.setOnClickListener {
             val intent = Intent(
                 Intent.ACTION_VIEW,
-                Uri.parse("http://maps.google.com/maps?&daddr=" + MainActivity.zonaEscalada?.latitud +
-                        "," + MainActivity.zonaEscalada?.longitud)
+                Uri.parse("http://maps.google.com/maps?&daddr=" + zonaEscalada?.latitud +
+                        "," + zonaEscalada?.longitud)
             )
             startActivity(intent)
         }
     }
 
-    private fun setBarChart() {
+    private fun setBarChart(arrayTotalVias: Array<Int>) {
         val values = ArrayList<BarEntry>()
-        values.add(BarEntry(4f, 18f))
-        values.add(BarEntry(5f, 32f))
-        values.add(BarEntry(6f, 64f))
-        values.add(BarEntry(7f, 26f))
-        values.add(BarEntry(8f, 15f))
-        values.add(BarEntry(9f, 3f))
+        values.add(BarEntry(4f, arrayTotalVias[0].toFloat()))
+        values.add(BarEntry(5f, arrayTotalVias[1].toFloat()))
+        values.add(BarEntry(6f, arrayTotalVias[2].toFloat()))
+        values.add(BarEntry(7f, arrayTotalVias[3].toFloat()))
+        values.add(BarEntry(8f, arrayTotalVias[4].toFloat()))
+        values.add(BarEntry(9f, arrayTotalVias[5].toFloat()))
 
         val barDataSet = BarDataSet(values, "Nº de vías por grado de dificultad")
         barDataSet.setDrawIcons(false)

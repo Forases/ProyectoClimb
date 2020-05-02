@@ -9,6 +9,7 @@ import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
+import com.lorenzohamaoka.proyectoclimb.Utils.Companion.getGradoVias
 import com.lorenzohamaoka.proyectoclimb.models.Vias
 import com.lorenzohamaoka.proyectoclimb.models.Sectores
 import dam.lorenzohamaoka.climbingapp.models.ZonasEscalada
@@ -155,7 +156,7 @@ class LoginActivity : AppCompatActivity() {
                 }
                 // Fallo en la autenticación.
                 if (!task.isSuccessful) {
-//                    getZonas()
+
                 }
             }
     }
@@ -265,7 +266,6 @@ class LoginActivity : AppCompatActivity() {
                 return@addSnapshotListener
             }
             for (document in querySnapshot!!) {
-                Log.d("DOC", "${document.id} => ${document.data}")
                 vias.add(
                     Vias(
                         document.id,
