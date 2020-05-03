@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.SeekBar
 import androidx.fragment.app.Fragment
 import com.lorenzohamaoka.proyectoclimb.R
+import com.lorenzohamaoka.proyectoclimb.SharedApp
 import kotlinx.android.synthetic.main.fragment_filtro.*
 
 class FiltroFragment : Fragment(), SeekBar.OnSeekBarChangeListener {
@@ -18,6 +19,9 @@ class FiltroFragment : Fragment(), SeekBar.OnSeekBarChangeListener {
     ): View? {
         val root = inflater.inflate(R.layout.fragment_filtro, container, false)
         activity?.title = "Opciones de filtrado"
+
+
+
         return root
     }
 
@@ -25,7 +29,12 @@ class FiltroFragment : Fragment(), SeekBar.OnSeekBarChangeListener {
         super.onActivityCreated(savedInstanceState)
 
         distanceBar.setOnSeekBarChangeListener(this)
-        distanceBar.progress = 25
+        distanceBar.progress = SharedApp.preferences.distance
+
+
+        prefButton.setOnClickListener {
+            SharedApp.preferences.distance = distanceBar.progress
+        }
     }
 
     override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {

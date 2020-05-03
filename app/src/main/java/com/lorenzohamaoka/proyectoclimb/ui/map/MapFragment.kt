@@ -1,16 +1,15 @@
 package com.lorenzohamaoka.proyectoclimb.ui.map
 
-import android.app.ActionBar
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
+import androidx.fragment.app.Fragment
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -23,8 +22,6 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.lorenzohamaoka.proyectoclimb.*
 import com.lorenzohamaoka.proyectoclimb.LoginActivity.Companion.zonasArray
 
-import dam.lorenzohamaoka.climbingapp.models.ZonasEscalada
-
 const val NOMBRE_ZONA = "NOMBRE_ZONA"
 
 class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
@@ -33,11 +30,12 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListe
     }
     private var mapView: MapView? = null
     private var gmap: GoogleMap? = null
+    private var currentLatLng: LatLng? = null
 
-    lateinit var toolbar: ActionBar
     private lateinit var currentMarker: String
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private lateinit var lastLocation: Location
+
 
     private val MAP_VIEW_BUNDLE_KEY = "MapViewBundleKey"
 
@@ -74,6 +72,104 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListe
         mapView?.onSaveInstanceState(mapViewBundle)
     }
 
+
+
+    override fun onMapReady(googleMap: GoogleMap) {
+        currentLatLng = getLocation()
+        gmap = googleMap
+        // Habilitamos los botones del zoom.
+        gmap!!.uiSettings.isZoomControlsEnabled = true
+        // Habilitamos la brújula, solo aparecerá cuando giremos el mapa.
+        gmap!!.uiSettings.isCompassEnabled = true
+        setMapMarkers()
+        configMap()
+        gmap!!.setOnMarkerClickListener(this)
+    }
+
+    /**
+     * Comprobamos los permisos de ubicación y ubicamos el mapa
+     * según nuestra ubicación.
+     */
+    private fun configMap() {
+        if (ActivityCompat.checkSelfPermission(
+                requireActivity(),
+                android.Manifest.permission.ACCESS_FINE_LOCATION
+            )
+            != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(
+                requireActivity(),
+                arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION),
+                LOCATION_PERMISSION_REQUEST_CODE
+            )
+            return
+        }
+        // Añadimos la marca en la ubicación que nos encontramos.
+        gmap!!.isMyLocationEnabled = true
+        gmap!!.animateCamera( CameraUpdateFactory.newLatLngZoom(currentLatLng, 9f))
+    }
+
+    /**
+     * Método para añadir la marca en la localización indicada.
+     */
+    private fun placeMarkerOnMap(location: LatLng, name: String) {
+        // Creamos un objeto MarkerOptions para configurar la marca.
+        val markerOptions = MarkerOptions().position(location)
+        markerOptions.title(name)
+        // Añadimos la marca al mapa.
+        gmap!!.addMarker(markerOptions)
+    }
+
+    private fun setMapMarkers(){
+        for (document in zonasArray) {
+
+            Log.d("DOC", "${document.referencia} => ${document.nombreZona}")
+            var distancia : Int?
+            distancia = Utils.distance(document.latitud!!,
+                document.longitud!!, currentLatLng!!.latitude, currentLatLng!!.longitude)
+            if(distancia <= SharedApp.preferences.distance)
+            {
+                val latLng = LatLng(document.latitud!!, document.longitud!!)
+                placeMarkerOnMap(latLng, document.nombreZona!!)
+            }
+        }
+    }
+
+    /**
+     * Se dispara cuando se hace click sobre una marca en el mapa,
+     * se implementa al heredar de GoogleMap.OnMarkerClickListener.
+     */
+    override fun onMarkerClick(p0: Marker?): Boolean {
+
+        currentMarker = p0!!.title.toString()
+        getZona(currentMarker)
+        val myIntent = Intent(activity , ZonasActivity::class.java).apply{
+            putExtra(NOMBRE_ZONA, currentMarker)
+        }
+        // Lanzamos la activity
+        startActivity(myIntent)
+        return false
+    }
+
+    private fun getZona(nombreZona: String?){
+        for(zona in zonasArray){
+            if(zona.nombreZona == nombreZona){
+                MainActivity.zonaEscalada = zona
+            }
+        }
+    }
+
+    private fun getLocation(): LatLng?{
+        var currentLatLng = LatLng(38.4004 ,-0.5330)
+        fusedLocationClient.lastLocation.addOnSuccessListener(requireActivity()) { location ->
+            if (location != null) {
+                lastLocation = location
+                currentLatLng = LatLng(location.latitude, location.longitude)
+            }
+        }
+        return currentLatLng
+    }
+
     override fun onResume() {
         super.onResume()
         mapView?.onResume()
@@ -102,106 +198,5 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListe
     override fun onLowMemory() {
         super.onLowMemory()
         mapView?.onLowMemory()
-    }
-
-    override fun onMapReady(googleMap: GoogleMap) {
-        gmap = googleMap
-        // Habilitamos los botones del zoom.
-        gmap!!.uiSettings.isZoomControlsEnabled = true
-        // Habilitamos la brújula, solo aparecerá cuando giremos el mapa.
-        gmap!!.uiSettings.isCompassEnabled = true
-        setMapMarkers()
-        configMap()
-        gmap!!.setOnMarkerClickListener(this)
-    }
-
-    /**
-     * Comprobamos los permisos de ubicación y ubicamos el mapa
-     * según nuestra ubicación.
-     */
-    private fun configMap() {
-
-        var currentLatLng: LatLng?
-
-        if (ActivityCompat.checkSelfPermission(
-                requireActivity(),
-                android.Manifest.permission.ACCESS_FINE_LOCATION
-            )
-            != PackageManager.PERMISSION_GRANTED
-        ) {
-            ActivityCompat.requestPermissions(
-                requireActivity(),
-                arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION),
-                LOCATION_PERMISSION_REQUEST_CODE
-            )
-            return
-        }
-        // Añadimos la marca en la ubicación que nos encontramos.
-        gmap!!.isMyLocationEnabled = true
-        fusedLocationClient.lastLocation.addOnSuccessListener(requireActivity()) { location ->
-            // Vamos a la última ubicación conocida,
-            // en algunos casos puede ser null.
-            if (location != null) {
-                lastLocation = location
-                currentLatLng = LatLng(location.latitude,
-                    location.longitude)
-                gmap!!.animateCamera(
-                    CameraUpdateFactory.newLatLngZoom(currentLatLng, 9f)
-                )
-            }else{
-                currentLatLng = LatLng(37.4041828,-0.529396)
-                gmap!!.animateCamera(
-                    CameraUpdateFactory.newLatLngZoom(currentLatLng, 9f)
-                )
-            }
-            for (document in zonasArray) {
-                document.distancia = Utils.distance(document.latitud!!,
-                    document.longitud!!, currentLatLng!!.latitude, currentLatLng!!.longitude)
-            }
-
-        }
-    }
-
-    /**
-     * Método para añadir la marca en la localización indicada.
-     */
-    private fun placeMarkerOnMap(location: LatLng, name: String) {
-        // Creamos un objeto MarkerOptions para configurar la marca.
-        val markerOptions = MarkerOptions().position(location)
-        markerOptions.title(name)
-        // Añadimos la marca al mapa.
-        gmap!!.addMarker(markerOptions)
-    }
-
-    private fun setMapMarkers(){
-        for (document in zonasArray) {
-            Log.d("DOC", "${document.referencia} => ${document.nombreZona}")
-            var latLng = LatLng(document.latitud!!, document.longitud!!)
-            placeMarkerOnMap(latLng, document.nombreZona!!)
-        }
-    }
-
-    /**
-     * Se dispara cuando se hace click sobre una marca en el mapa,
-     * se implementa al heredar de GoogleMap.OnMarkerClickListener.
-     */
-    override fun onMarkerClick(p0: Marker?): Boolean {
-
-        currentMarker = p0!!.title.toString()
-        getZona(currentMarker)
-        val myIntent = Intent(activity , ZonasActivity::class.java).apply{
-            putExtra(NOMBRE_ZONA, currentMarker)
-        }
-        // Lanzamos la activity
-        startActivity(myIntent)
-        return false
-    }
-
-    private fun getZona(nombreZona: String?){
-        for(zona in zonasArray){
-            if(zona.nombreZona == nombreZona){
-                MainActivity.zonaEscalada = zona
-            }
-        }
     }
 }
