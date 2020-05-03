@@ -47,6 +47,7 @@ class MapFragment : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListe
         savedInstanceState: Bundle?
     ): View? {
 
+        activity?.title = "Mapa"
         val root = inflater.inflate(R.layout.fragment_map, container, false)
 
         var mapViewBundle: Bundle? = null

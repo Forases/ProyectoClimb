@@ -9,7 +9,8 @@
 
     <SearchView
         android:id="@+id/searchView"
-        android:hint="hola"
+        android:queryHint="Busca zonas de escalada..."
+        android:iconifiedByDefault="false"
         android:layout_width="0dp"
         android:layout_height="41dp"
         android:layout_marginStart="5dp"

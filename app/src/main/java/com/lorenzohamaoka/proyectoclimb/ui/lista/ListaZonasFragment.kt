@@ -27,6 +27,7 @@ class ListaZonasFragment : Fragment() {
     private lateinit var adapter: ZonasListAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        activity?.title = "Lista de zonas"
         return inflater.inflate(R.layout.fragment_lista_zonas, container, false)
     }
 
